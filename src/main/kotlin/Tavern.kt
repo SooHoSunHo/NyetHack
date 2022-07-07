@@ -17,5 +17,6 @@ fun main(args: Array<String>) {
     val beverageService: String = beverage ?: "맥주"
 
     println(beverageService)
+
 }
 

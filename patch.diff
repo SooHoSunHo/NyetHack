@@ -1,0 +1,19 @@
+diff --git a/src/main/kotlin/Tavern.kt b/src/main/kotlin/Tavern.kt
+index 0a3a146..3d612e8 100644
+--- a/src/main/kotlin/Tavern.kt
++++ b/src/main/kotlin/Tavern.kt
+@@ -12,10 +12,14 @@ fun main(args: Array<String>) {
+ 
+     var beverage = readLine()!!.replaceFirstChar { it.uppercase() }
+ 
++<<<<<<< HEAD
+ 
+ 
+     val beverageService: String = beverage ?: "맥주"
+ 
+     println(beverageService)
++=======
++    println(beverage)
++>>>>>>> e310f820643b3e42ceee66615b950936b5436f97
+ }
+ 
