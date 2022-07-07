@@ -10,7 +10,7 @@ fun main(args: Array<String>) {
 //    }
 //    beverage = null
 
-    //var beverage = readLine()!!.replaceFirstChar { it.uppercase() }
+    var beverage = readLine()!!.replaceFirstChar { it.uppercase() }
 
 
 
