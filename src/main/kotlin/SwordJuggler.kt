@@ -6,11 +6,19 @@ fun main(args: Array<String>) {
         swordJuggling = 2
     }
 
-    proficiencyCheck(swordJuggling)
-    swordJuggling = swordJuggling!!.plus(1)
+    try{
+        proficiencyCheck(swordJuggling)
+        swordJuggling = swordJuggling!!.plus(1)
+    } catch(e: Exception) {
+        println(e)
+    }
+
     println("$swordJuggling 개의 칼로 저글링합니다!!")
 }
 
 fun proficiencyCheck(swordJuggling: Int?) {
-    swordJuggling ?: throw IllegalStateException("플레이어가 저글링을 할 수 없음")
+    swordJuggling ?: throw UnskilledSwordJugglerException()
 }
+
+class UnskilledSwordJugglerException():
+    IllegalStateException("플레이어가 저글링을 할 수 없음")
