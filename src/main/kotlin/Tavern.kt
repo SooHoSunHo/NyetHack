@@ -1,4 +1,10 @@
+import kotlin.math.roundToInt
+
 const val TAVERN_NAME = "Taernyl's Folly"
+
+var playerGold = 10
+var playerSilver = 10
+
 fun main(args: Array<String>) {
 
 //    var beverage = readLine()?.replaceFirstChar { it.uppercase() }
@@ -23,6 +29,27 @@ fun main(args: Array<String>) {
 
 }
 
+fun performPurchase(price: Double) {
+    displayBalance()
+    val totalPurse = playerGold + (playerSilver / 100.0)
+    println("지갑 전체 금액 : $totalPurse")
+    println("금화 $price 로 술을 구입함")
+    val remainingBalance = totalPurse - price
+    println("남은 작액 : ${"%.2f".format(remainingBalance)}")
+
+    val remainingGold = remainingBalance.toInt()
+    val remainingSilver = (remainingBalance % 1 * 100).roundToInt()
+    playerGold = remainingGold
+    playerSilver = remainingSilver
+    displayBalance()
+
+
+}
+
+private fun displayBalance() {
+    println("플레이어의 지갑 잔액 : 금화 : $playerGold 개, 은화 : $playerSilver 개")
+}
+
 private fun placeOrder(menuData: String) {
     val indexOfApostrophe = TAVERN_NAME.indexOf('\'')
     val tavernMaster = TAVERN_NAME.substring(0 until indexOfApostrophe)
@@ -33,8 +60,8 @@ private fun placeOrder(menuData: String) {
     val message = "마드리갈은 금화 $price 로 $name ($type)를 구입한다."
     println(message)
 
-//    val phrase = "와, $name 진짜 좋구나!"
-//    println("마드리갈이 감탄한다: ${toDragonSpeak(phrase)}")
+    performPurchase(price.toDouble())
+
     var phrase = if (name == "Dragon's Breath") {
         "마드리갈이 감탄핟다: ${toDragonSpeak("와, $name 진짜 좋구나")}"
     } else {
