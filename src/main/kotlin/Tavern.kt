@@ -1,32 +1,12 @@
 import kotlin.math.roundToInt
-
 const val TAVERN_NAME = "Taernyl's Folly"
 
 var playerGold = 10
 var playerSilver = 10
-
+val patronList = listOf("Eli", "Mordoc", "Sophie")
 fun main(args: Array<String>) {
-
-//    var beverage = readLine()?.replaceFirstChar { it.uppercase() }
-//    var beverage = readLine()?.let {
-//        if (it.isNotBlank()) {
-//            it.replaceFirstChar { it.uppercase() }
-//        } else {
-//            "Beer"
-//        }
-//    }
-//    beverage = null
-
-//    var beverage = readLine()!!.replaceFirstChar { it.uppercase() }
-//
-//
-//
-//    val beverageService: String = beverage ?: "맥주"
-//
-//    println(beverageService)
-
     placeOrder("shandy,Dragon's Breath,5.91")
-
+    println(patronList.last())
 }
 
 fun performPurchase(price: Double) {
