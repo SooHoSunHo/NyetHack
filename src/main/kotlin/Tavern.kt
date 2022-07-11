@@ -1,14 +1,24 @@
 import kotlin.math.roundToInt
+import java.io.File
 const val TAVERN_NAME = "Taernyl's Folly"
 
 var playerGold = 10
 var playerSilver = 10
-val patronList = listOf("Eli", "Mordoc", "Sophie")
-fun main(args: Array<String>) {
-    placeOrder("shandy,Dragon's Breath,5.91")
-    println(patronList.last())
-}
+val patronList = mutableListOf("Eli", "Mordoc", "Sophie")
+val menuList = File("data/tavern-menu-items.txt")
+    .readText()
+    .split("\r\n")
 
+fun main(args: Array<String>) {
+    patronList.forEachIndexed { index, patron ->
+        println("좋은 밤입니다. $patron 님 - 당신은 #${index+1} 번째 입니다.")
+        placeOrder(patron, menuList.shuffled().first())
+    }
+
+    menuList.forEachIndexed { index, data ->
+        println("$index : $data")
+    }
+}
 fun performPurchase(price: Double) {
     displayBalance()
     val totalPurse = playerGold + (playerSilver / 100.0)
@@ -22,30 +32,30 @@ fun performPurchase(price: Double) {
     playerGold = remainingGold
     playerSilver = remainingSilver
     displayBalance()
-
-
 }
 
 private fun displayBalance() {
     println("플레이어의 지갑 잔액 : 금화 : $playerGold 개, 은화 : $playerSilver 개")
 }
 
-private fun placeOrder(menuData: String) {
+private fun placeOrder(patronName: String, menuData: String) {
     val indexOfApostrophe = TAVERN_NAME.indexOf('\'')
     val tavernMaster = TAVERN_NAME.substring(0 until indexOfApostrophe)
-    println("마드리갈은 $tavernMaster 에게 주문한다.")
+    println("$patronName 은 $tavernMaster 에게 주문한다.")
 
     /* 해체선언 */
     val(type, name, price) = menuData.split(",")
-    val message = "마드리갈은 금화 $price 로 $name ($type)를 구입한다."
+    val message = "$patronName 은 금화 $price 로 $name ($type)를 구입한다."
     println(message)
 
-    performPurchase(price.toDouble())
+    //performPurchase(price.toDouble())
 
     var phrase = if (name == "Dragon's Breath") {
-        "마드리갈이 감탄핟다: ${toDragonSpeak("와, $name 진짜 좋구나")}"
+//        "마드리갈이 감탄핟다: ${toDragonSpeak("와, $name 진짜 좋구나")}"
+        "$patronName 이 감탄한다. ${toDragonSpeak("와, $name 진짜 좋구나")}"
     } else {
-        "마드리갈이 말한다: 감사합니다. $name"
+//        "마드리갈이 말한다: 감사합니다. $name"
+        "$patronName 이 말한다: 감사합니다 $name."
     }
     println(phrase)
 }
