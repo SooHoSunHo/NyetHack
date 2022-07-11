@@ -1,16 +1,27 @@
 package com.bignerdranch.nyethack
 
-class Player {
+class Player(
+    _name: String,
+    var healthPoints: Int = 100,
+    val isBlessed: Boolean,
+    private val isImmortal: Boolean
+) {
 
-    var name = "madrigal"
+    var name = _name
         get() = field.replaceFirstChar{it.uppercase()}
         private set(value) {
             field = value.trim()
         }
+    init {
+        require(healthPoints > 0, {"healthPoints는 0보다 커야 합니다."})
+        require(name.isNotBlank(), {"플레이어는 이름이 있어야 합니다."})
+    }
 
-    var healthPoints = 89
-    val isBlessed = true
-    private val isImmortal = false
+    constructor(name: String): this(name,
+            isBlessed = true,
+            isImmortal = false) {
+        if (name.lowercase() == "kar") healthPoints = 40
+    }
 
     fun auraColor() =
         if (isBlessed && healthPoints > 50 || isImmortal) {

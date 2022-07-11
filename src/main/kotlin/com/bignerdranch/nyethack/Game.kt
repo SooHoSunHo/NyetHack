@@ -1,7 +1,7 @@
 package com.bignerdranch.nyethack
 
 fun main() {
-    val player = Player()
+    val player = Player("Madrigal")
     player.castFireball()
 
     val karma = (Math.pow(Math.random(), (110 - player.healthPoints) / 100.0)*20).toInt()
