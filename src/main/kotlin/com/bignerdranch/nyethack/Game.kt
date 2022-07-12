@@ -6,6 +6,10 @@ fun main() {
 
     val karma = (Math.pow(Math.random(), (110 - player.healthPoints) / 100.0)*20).toInt()
 
+    var currentRoom: Room = TownSquare()
+    println(currentRoom.description())
+    println(currentRoom.load())
+
     // 플레이어의 상태 출력
     printPlayerStatus(player)
 }
