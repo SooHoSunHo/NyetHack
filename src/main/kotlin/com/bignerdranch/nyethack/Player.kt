@@ -1,5 +1,7 @@
 package com.bignerdranch.nyethack
 
+import java.io.File
+
 class Player(
     _name: String,
     var healthPoints: Int = 100,
@@ -8,10 +10,13 @@ class Player(
 ) {
 
     var name = _name
-        get() = field.replaceFirstChar{it.uppercase()}
+        get() = "${field.replaceFirstChar{it.uppercase()}} of $hometown"
         private set(value) {
             field = value.trim()
         }
+
+    val hometown: String = selectHometown()
+
     init {
         require(healthPoints > 0, {"healthPoints는 0보다 커야 합니다."})
         require(name.isNotBlank(), {"플레이어는 이름이 있어야 합니다."})
@@ -45,4 +50,10 @@ class Player(
 
     fun castFireball(numFireballs: Int = 2) =
         print("한 덩어리의 파이어볼이 나타난다. (x$numFireballs)")
+
+    private fun selectHometown() = File("data/towns.txt")
+        .readText()
+        .split("\r\n")
+        .shuffled()
+        .first()
 }
