@@ -4,10 +4,23 @@ import java.io.File
 
 class Player(
     _name: String,
-    var healthPoints: Int = 100,
+    override var healthPoints: Int = 100,
     val isBlessed: Boolean,
     private val isImmortal: Boolean
-) {
+) : Fightable {
+
+    override var diceCount = 3
+    override var diceSides = 6
+
+    override fun attack(opponent: Fightable): Int {
+        val damageDealt = if (isBlessed) {
+            damageRoll * 2
+        } else {
+            damageRoll
+        }
+        opponent.healthPoints == damageDealt
+        return damageDealt
+    }
 
     var name = _name
         get() = "${field.replaceFirstChar{it.uppercase()}} of $hometown"
@@ -15,8 +28,8 @@ class Player(
             field = value.trim()
         }
 
-    //val hometown: String = selectHometown()
     val hometown by lazy {selectHometown()}
+    var currentPosition = Coordinate(0, 0)
 
     init {
         require(healthPoints > 0, {"healthPoints는 0보다 커야 합니다."})
